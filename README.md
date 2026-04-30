@@ -1,59 +1,89 @@
-# Angular21Boilerplate
+# Angular 21 Auth Boilerplate (Beginner Guide)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.6.
+This project is a beginner-friendly Angular 21 boilerplate that demonstrates a complete authentication flow:
 
-## Development server
+- Email sign up + email verification
+- Login + logout
+- JWT auth header for API requests
+- Refresh tokens (cookie-based) + auto-refresh before access token expiry
+- Forgot password + reset password
+- Role-based authorization (User & Admin)
+- Admin area for account management
+- Profile area for viewing/updating your own account
 
-To start a local development server, run:
+## Table of contents
 
-```bash
-ng serve
-```
+1. Prerequisites
+2. Run the app (real API)
+3. Run the app (fake backend, no API)
+4. Using the app (what to click)
+5. How authentication works
+6. Authorization (roles + route guards)
+7. Project structure (quick tour)
+8. Troubleshooting
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 1) Prerequisites
 
-## Code scaffolding
+- Node.js (LTS recommended)
+- npm (comes with Node.js)
+- (Optional) Angular CLI:
+  npm i -g @angular/cli
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 2) Run the app (real API)
 
-```bash
-ng generate component component-name
-```
+- Default API: http://localhost:4000
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Step 1: install packages
+npm install
 
-```bash
-ng generate --help
-```
+Step 2: start backend API
 
-## Building
+Step 3: start Angular
+npm start
 
-To build the project run:
+## 3) Run the app (fake backend, no API)
 
-```bash
-ng build
-```
+Enable fake backend in app.module.ts:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+providers: [
+  { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },
+  { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  fakeBackendProvider
+]
 
-## Running unit tests
+Then:
+npm install
+npm start
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## 4) Using the app
 
-```bash
-ng test
-```
+A) Create account  
+B) Login  
+C) Forgot password  
+D) Profile/Admin areas  
 
-## Running end-to-end tests
+## 5) How authentication works
 
-For end-to-end (e2e) testing, run:
+- Uses JWT access token
+- Refresh token stored in cookie
+- Auto refresh before expiration
 
-```bash
-ng e2e
-```
+## 6) Authorization
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- Protected by AuthGuard
+- Admin routes require Role.Admin
 
-## Additional Resources
+## 7) Project structure
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- _services/
+- _helpers/
+- _models/
+- account/
+- profile/
+- admin/
+
+## 8) Troubleshooting
+
+- Ensure API URL is correct
+- Check CORS if backend is separate

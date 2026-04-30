@@ -1,0 +1,8 @@
+<h1>My Profile</h1>
+
+<p *ngIf="account as acc">
+    <strong>Name: </strong> {{acc.title}} {{acc.firstName}} {{acc.lastName}}<br />
+    <strong>Email: </strong> {{acc.email}}
+</p>
+
+<p><a routerLink="update">Update Profile</a></p>
