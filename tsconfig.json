@@ -6,6 +6,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "type": ["node"],
     "outDir": "./dist/out-tsc",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
